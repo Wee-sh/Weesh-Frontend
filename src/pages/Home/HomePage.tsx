@@ -69,6 +69,9 @@ const HomePage = () => {
               <img src={currentTree.url} className="w-full" />
             </div>
           )}
+          <p className="absolute bottom-[62px] text-xl text-[#454545]">
+            내 트리로 돌아가기
+          </p>
           <img src={post} className="w-16 h-14 absolute right-4 bottom-14" />
         </div>
       </div>
