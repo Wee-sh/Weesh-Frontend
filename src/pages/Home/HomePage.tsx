@@ -8,6 +8,7 @@ import tree_3 from "../../assets/decoration/trees/tree_3.png";
 import tree_4 from "../../assets/decoration/trees/tree_4.png";
 import tree_5 from "../../assets/decoration/trees/tree_5.png";
 import star from "../../assets/decoration/star.svg";
+import { useNavigate } from "react-router-dom";
 
 const trees = [
   { id: 0, url: tree_0 },
@@ -19,13 +20,8 @@ const trees = [
 ];
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const [gift, setGift] = useState(0);
-
-  const handleGift = () => {
-    if (gift < 5) {
-      setGift(gift + 1);
-    }
-  };
 
   const currentTree = trees.find((tree) => tree.id === gift);
 
@@ -45,11 +41,8 @@ const HomePage = () => {
         <img src={setting_cookie} className="absolute right-4" />
       </div>
 
-      <div className="w-full h-[25%] absolute bottom-0">
-        <div
-          onClick={handleGift}
-          className="w-full h-full flex justify-center relative bg-cover bg-center bg-no-repeat bg-[url('src/assets/decoration/snow.svg')]"
-        >
+      <div className="w-full h-[25%] absolute bottom-0 pointer-events-none">
+        <div className="w-full h-full flex justify-center relative bg-cover bg-center bg-no-repeat bg-[url('src/assets/decoration/snow.svg')]">
           {currentTree && (
             <div className="absolute bottom-[130px] w-[393px] flex justify-center">
               <div
@@ -72,7 +65,13 @@ const HomePage = () => {
           <p className="absolute bottom-[62px] text-xl text-[#454545]">
             내 트리로 돌아가기
           </p>
-          <img src={post} className="w-16 h-14 absolute right-4 bottom-14" />
+          <img
+            onClick={(e) => {
+              navigate("/post-box");
+            }}
+            src={post}
+            className="z-50 w-16 h-14 absolute right-4 bottom-14 cursor-pointer pointer-events-auto"
+          />
         </div>
       </div>
     </div>
