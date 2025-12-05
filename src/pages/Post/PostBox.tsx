@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import arrow from "../../assets/Icon/arrow.svg";
+import arrow from "../../assets/Icon/arrow-left.svg";
 import { useNavigate } from "react-router-dom";
-import ToggleSwitch from "../../components/post/ToggleSwitch";
-import GiftGrid from "../../components/post/GiftGrid";
+import ToggleSwitch from "../../components/Post/ToggleSwitch";
+import GiftGrid from "../../components/Post/GiftGrid";
 
 export interface Message {
   id: number;
