@@ -1,5 +1,5 @@
 import weesh_letter from "../../assets/decoration/weesh-letter.png";
-import KakaoOauthButton from "../../components/auth/KakaoOauthButton";
+import KakaoOauthButton from "../../components/Auth/KakaoOauthButton";
 import insta_icon from "../../assets/Icon/insta_icon.svg";
 import tree from "../../assets/decoration/image-removebg-preview-51 1.png";
 import tree_halo from "../../assets/decoration/Vector 3.png";

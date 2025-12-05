@@ -38,7 +38,11 @@ const HomePage = () => {
           {"김소희"}의 트리
         </h1>
 
-        <img src={setting_cookie} className="absolute right-4" />
+        <img
+          src={setting_cookie}
+          className="absolute right-4 pointer-events-auto"
+          onClick={() => navigate("/setting")}
+        />
       </div>
 
       <div className="w-full h-[25%] absolute bottom-0 pointer-events-none">
@@ -66,9 +70,7 @@ const HomePage = () => {
             내 트리로 돌아가기
           </p>
           <img
-            onClick={(e) => {
-              navigate("/post-box");
-            }}
+            onClick={() => navigate("/post-box")}
             src={post}
             className="z-50 w-16 h-14 absolute right-4 bottom-14 cursor-pointer pointer-events-auto"
           />
