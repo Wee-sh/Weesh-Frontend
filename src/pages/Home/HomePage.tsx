@@ -104,6 +104,7 @@ const HomePage = () => {
           onSubmit={(content, isAnon) => {
             console.log("내용:", content);
             console.log("익명?", isAnon);
+            setIsWriteModalOpen(false);
           }}
         />
       </Modal>
