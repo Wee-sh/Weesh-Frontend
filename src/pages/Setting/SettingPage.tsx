@@ -28,7 +28,7 @@ const SettingPage = () => {
         </h1>
 
         <img
-          onClick={() => navigate("/")}
+          onClick={() => navigate(-1)}
           src={arrow_left}
           className="absolute left-4 cursor-pointer pointer-events-auto"
         />

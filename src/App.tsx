@@ -8,9 +8,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
         <Route path="/" element={<HomePage />} />
+        <Route path="/tree/:userId" element={<HomePage />} />
         <Route path="/post-box" element={<PostBox />} />
+        {/*<Route path="/write-message/:userId" element={<WriteMessage />} /> */}
         <Route path="/setting" element={<SettingPage />} />
       </Routes>
     </BrowserRouter>

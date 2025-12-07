@@ -8,7 +8,9 @@ import tree_3 from "../../assets/decoration/trees/tree_3.png";
 import tree_4 from "../../assets/decoration/trees/tree_4.png";
 import tree_5 from "../../assets/decoration/trees/tree_5.png";
 import star from "../../assets/decoration/star.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Modal from "../../components/Modal/Modal";
+import WritePostModal from "../../components/Modal/WritePostModal";
 
 const trees = [
   { id: 0, url: tree_0 },
@@ -21,12 +23,25 @@ const trees = [
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const { userId } = useParams();
   const [gift, setGift] = useState(0);
+  const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
+
+  const currentUserId = "myUserId";
+  const isMyTree = !userId || userId === currentUserId;
 
   const currentTree = trees.find((tree) => tree.id === gift);
 
+  const handlePostClick = () => {
+    if (isMyTree) {
+      navigate("/post-box");
+    } else {
+      setIsWriteModalOpen(true);
+    }
+  };
+
   return (
-    <div className="w-screen min-h-screen relative bg-cover bg-center bg-no-repeat bg-[url('src/assets/background/weesh-home-bg.png')]">
+    <div className="w-screen min-h-screen relative bg-cover bg-center bg-no-repeat bg-[url('/src/assets/background/weesh-home-bg.png')]">
       <div className="w-full flex justify-center items-center pt-11 relative">
         <h1
           style={{
@@ -35,7 +50,7 @@ const HomePage = () => {
           }}
           className="text-2xl text-[#62B01B]"
         >
-          {"김소희"}의 트리
+          {isMyTree ? "김소희" : userId}의 트리
         </h1>
 
         <img
@@ -46,7 +61,7 @@ const HomePage = () => {
       </div>
 
       <div className="w-full h-[25%] absolute bottom-0 pointer-events-none">
-        <div className="w-full h-full flex justify-center relative bg-cover bg-center bg-no-repeat bg-[url('src/assets/decoration/snow.svg')]">
+        <div className="w-full h-full flex justify-center relative bg-cover bg-center bg-no-repeat bg-[url('/src/assets/decoration/snow.svg')]">
           {currentTree && (
             <div className="absolute bottom-[130px] w-[393px] flex justify-center">
               <div
@@ -66,16 +81,32 @@ const HomePage = () => {
               <img src={currentTree.url} className="w-full" />
             </div>
           )}
-          <p className="absolute bottom-[62px] text-xl text-[#454545]">
-            내 트리로 돌아가기
+          <p
+            onClick={() => navigate("/")}
+            className="absolute bottom-[62px] text-xl text-[#454545] pointer-events-auto"
+          >
+            {isMyTree ? "" : "내 트리로 돌아가기"}
           </p>
           <img
-            onClick={() => navigate("/post-box")}
+            onClick={handlePostClick}
             src={post}
             className="z-50 w-16 h-14 absolute right-4 bottom-14 cursor-pointer pointer-events-auto"
           />
         </div>
       </div>
+
+      <Modal
+        isOpen={isWriteModalOpen}
+        onClose={() => setIsWriteModalOpen(false)}
+      >
+        <WritePostModal
+          userId={"홍길동"}
+          onSubmit={(content, isAnon) => {
+            console.log("내용:", content);
+            console.log("익명?", isAnon);
+          }}
+        />
+      </Modal>
     </div>
   );
 };

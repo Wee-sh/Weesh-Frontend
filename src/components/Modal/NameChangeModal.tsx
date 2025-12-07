@@ -1,14 +1,12 @@
 import { useState } from "react";
+import SubmitButton from "./SubmitButton";
 
-interface NameChangeModalContentProps {
+interface Props {
   currentName?: string;
   onConfirm: (newName: string) => void;
 }
 
-const NameChangeModalContent = ({
-  currentName = "",
-  onConfirm,
-}: NameChangeModalContentProps) => {
+const NameChangeModalContent = ({ currentName = "", onConfirm }: Props) => {
   const [name, setName] = useState(currentName);
 
   return (
@@ -33,13 +31,7 @@ const NameChangeModalContent = ({
       </div>
 
       {name && (
-        <button
-          onClick={() => onConfirm(name)}
-          className="w-full bg-[#3E2A0E] text-white py-3 rounded-xl text-xs mt-[10px]"
-          disabled={!name.trim()}
-        >
-          변경
-        </button>
+        <SubmitButton onHandle={() => onConfirm(name)} buttonTitle="변경" />
       )}
     </div>
   );

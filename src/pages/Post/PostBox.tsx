@@ -102,7 +102,7 @@ const PostBox = () => {
         </h1>
 
         <img
-          onClick={() => navigate("/")}
+          onClick={() => navigate(-1)}
           src={arrow}
           className="absolute left-4 cursor-pointer pointer-events-auto"
         />
