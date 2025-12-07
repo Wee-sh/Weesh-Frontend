@@ -3,6 +3,8 @@ import arrow from "../../assets/Icon/arrow-left.svg";
 import { useNavigate } from "react-router-dom";
 import ToggleSwitch from "../../components/Post/ToggleSwitch";
 import GiftGrid from "../../components/Post/GiftGrid";
+import Modal from "../../components/Modal/Modal";
+import PostModal from "../../components/Modal/PostModal";
 
 export interface Message {
   id: number;
@@ -15,8 +17,10 @@ export interface Message {
 
 const PostBox = () => {
   const navigate = useNavigate();
-  const [selected, setSelected] = useState<"sent" | "received">("received");
+  const [selected, setSelected] = useState<"sent" | "received">("sent");
   const [messages, setMessages] = useState<Message[]>([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
 
   const receivedMessages: Message[] = [
     {
@@ -110,7 +114,24 @@ const PostBox = () => {
 
       <ToggleSwitch selected={selected} onToggle={setSelected} />
 
-      <GiftGrid messages={messages} type={selected} />
+      <GiftGrid
+        messages={messages}
+        type={selected}
+        onClickMessage={(msg) => {
+          setSelectedMessage(msg);
+          setOpenModal(true);
+        }}
+      />
+
+      {openModal && selectedMessage && (
+        <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
+          <PostModal
+            fromUserName={selectedMessage.fromUserName}
+            toUserName={selectedMessage.toUserName}
+            content={selectedMessage.content}
+          />
+        </Modal>
+      )}
     </div>
   );
 };
