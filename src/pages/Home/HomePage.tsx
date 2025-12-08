@@ -7,10 +7,12 @@ import tree_2 from "../../assets/decoration/trees/tree_2.png";
 import tree_3 from "../../assets/decoration/trees/tree_3.png";
 import tree_4 from "../../assets/decoration/trees/tree_4.png";
 import tree_5 from "../../assets/decoration/trees/tree_5.png";
+import copy_link from "../../assets/Icon/copy_link.svg";
 import star from "../../assets/decoration/star.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import Modal from "../../components/Modal/Modal";
 import WritePostModal from "../../components/Modal/WritePostModal";
+import { useToast } from "../../components/Toast/ToastProvider";
 
 const trees = [
   { id: 0, url: tree_0 },
@@ -26,6 +28,7 @@ const HomePage = () => {
   const { userId } = useParams();
   const [gift, setGift] = useState(0);
   const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
+  const { showToast } = useToast();
 
   const currentUserId = "myUserId";
   const isMyTree = !userId || userId === currentUserId;
@@ -43,6 +46,18 @@ const HomePage = () => {
   return (
     <div className="w-screen min-h-screen relative bg-cover bg-center bg-no-repeat bg-[url('/src/assets/background/weesh-home-bg.png')]">
       <div className="w-full flex justify-center items-center pt-11 relative">
+        <div
+          onClick={() =>
+            showToast({
+              message: "링크가 복사되었습니다!",
+              duration: 2000,
+            })
+          }
+          className="flex flex-col items-center text-xs text-white absolute left-4 pointer-events-auto"
+        >
+          <img src={copy_link} />내 트리 공유
+        </div>
+
         <h1
           style={{
             textShadow:
