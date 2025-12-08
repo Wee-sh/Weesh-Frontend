@@ -14,6 +14,7 @@ const ToastContainer: React.FC<Props> = ({ toast }) => {
   // 캐러셀 동작
   useEffect(() => {
     if (!toast) return;
+
     if (!isCarousel) {
       setIndex(0);
       return;
@@ -30,8 +31,14 @@ const ToastContainer: React.FC<Props> = ({ toast }) => {
 
   const content = isCarousel ? toast.message[index] : toast.message;
 
+  const animationClass = toast.persist
+    ? "" // 지속형이면 애니메이션 제거 (fade-out 방지)
+    : "animate-fadeInOut";
+
   return (
-    <div className="fixed top-[88px] left-1/2 -translate-x-1/2 opacity-80 bg-[#7F7F7F] text-white px-4 py-3 rounded-xl text-base transition-all duration-300 animate-fadeInOut z-50">
+    <div
+      className={`fixed top-[138px] left-1/2 -translate-x-1/2 opacity-80 bg-[#7F7F7F] text-white px-4 py-3 rounded-xl text-base transition-all duration-300 z-50 ${animationClass}`}
+    >
       {content}
     </div>
   );

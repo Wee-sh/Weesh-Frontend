@@ -5,6 +5,7 @@ import ToggleSwitch from "../../components/Post/ToggleSwitch";
 import GiftGrid from "../../components/Post/GiftGrid";
 import Modal from "../../components/Modal/Modal";
 import PostModal from "../../components/Modal/PostModal";
+import { useToast } from "../../components/Toast/ToastProvider";
 
 export interface Message {
   id: number;
@@ -17,10 +18,16 @@ export interface Message {
 
 const PostBox = () => {
   const navigate = useNavigate();
+  const toast = useToast();
+  const toastShownRef = React.useRef(false);
+
   const [selected, setSelected] = useState<"sent" | "received">("sent");
   const [messages, setMessages] = useState<Message[]>([]);
   const [openModal, setOpenModal] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
+
+  const unlockTime = new Date("2025-12-24T20:30:00");
+  const isUnlocked = new Date() >= unlockTime;
 
   const receivedMessages: Message[] = [
     {
@@ -93,6 +100,27 @@ const PostBox = () => {
     }
   }, [selected]);
 
+  useEffect(() => {
+    if (selected === "received" && !isUnlocked && !toastShownRef.current) {
+      toastShownRef.current = true; // 다시 실행되지 않도록 막기
+      toast.showToast({
+        message: "받은 편지는 12월 24일 오후 8시 30분 부터 확인 가능해요!",
+        persist: true,
+      });
+    }
+
+    if (selected === "sent") {
+      toastShownRef.current = false;
+      toast.hideToast();
+    }
+  }, [selected, isUnlocked]);
+
+  const handleClickMessage = (msg: Message) => {
+    if (selected === "received" && !isUnlocked) return; // 클릭 막기
+    setSelectedMessage(msg);
+    setOpenModal(true);
+  };
+
   return (
     <div className="w-screen min-h-screen bg-[#452F11] flex flex-col items-center px-4 pb-8">
       <div className="w-full flex justify-center items-center pt-11 relative pointer-events-none mb-[6px]">
@@ -103,11 +131,14 @@ const PostBox = () => {
           }}
           className="text-2xl text-[#FBB75F]"
         >
-          {32}개
+          {messages.length}개
         </h1>
 
         <img
-          onClick={() => navigate(-1)}
+          onClick={() => {
+            navigate(-1);
+            toast.hideToast();
+          }}
           src={arrow}
           className="absolute left-4 cursor-pointer pointer-events-auto"
         />
@@ -118,10 +149,8 @@ const PostBox = () => {
       <GiftGrid
         messages={messages}
         type={selected}
-        onClickMessage={(msg) => {
-          setSelectedMessage(msg);
-          setOpenModal(true);
-        }}
+        locked={selected === "received" && !isUnlocked}
+        onClickMessage={handleClickMessage}
       />
 
       {openModal && selectedMessage && (

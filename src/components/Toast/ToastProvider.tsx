@@ -32,6 +32,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
 
     setToast(options);
 
+    // 지속형(persist)일 때는 자동 제거 안 함
     if (!persist) {
       setTimeout(() => {
         setToast(null);
