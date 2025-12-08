@@ -129,6 +129,7 @@ const PostBox = () => {
           <PostModal
             fromUserName={selectedMessage.fromUserName}
             toUserName={selectedMessage.toUserName}
+            time={selectedMessage.createdAt}
             content={selectedMessage.content}
           />
         </Modal>
