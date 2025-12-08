@@ -18,8 +18,9 @@ const WritePostModal = ({ userId, onSubmit }: Props) => {
       </div>
 
       <textarea
+        placeholder="전하고 싶은 따뜻한 말을 작성해주세요! (최대 200자)"
         onChange={(e) => setContent(e.target.value)}
-        className="w-full h-[420px] rounded-xl pt-3 pl-4 bg-[#DDB276] outline-none border-none text-[16px] resize-none"
+        className="w-full h-[420px] rounded-xl pt-3 pl-4 bg-[#DDB276] outline-none border-none text-[16px] resize-none placeholder:text-[#856333]"
       />
 
       <SubmitButton
