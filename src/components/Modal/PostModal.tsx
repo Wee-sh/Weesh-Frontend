@@ -15,7 +15,7 @@ const PostModal = ({ fromUserName, toUserName, content }: Props) => {
         TO. {toUserName}에게
       </div>
 
-      <div className="w-full h-[378px] mt-5 bg-repeat bg-[url('/src/assets/decoration/scribble.svg')]  bg-[length:auto_32px]">
+      <div className="w-full h-[378px] text-xl text-[#3E2A0E] leading-8 mt-4 bg-repeat bg-[url('/src/assets/decoration/scribble.svg')]  bg-[length:auto_32px]">
         {content}
       </div>
 
