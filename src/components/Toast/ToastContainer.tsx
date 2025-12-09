@@ -60,7 +60,7 @@ const ToastContainer: React.FC<Props> = ({ toast }) => {
           )}
         </div>
       ) : (
-        <div>{toast.message}</div>
+        <div className="whitespace-nowrap break-keep">{toast.message}</div>
       )}
     </div>
   );
