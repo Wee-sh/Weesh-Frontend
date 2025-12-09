@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import setting_cookie from "../../assets/Icon/setting-cookie.svg";
 import post from "../../assets/decoration/post.svg";
 import tree_0 from "../../assets/decoration/trees/tree_0.png";
@@ -26,14 +26,37 @@ const trees = [
 const HomePage = () => {
   const navigate = useNavigate();
   const { userId } = useParams();
-  const [gift, setGift] = useState(0);
-  const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
   const { showToast } = useToast();
+
+  const [gift, setGift] = useState(0);
 
   const currentUserId = "myUserId";
   const isMyTree = !userId || userId === currentUserId;
-
   const currentTree = trees.find((tree) => tree.id === gift);
+
+  const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
+
+  const now = new Date();
+  const unlockTime = new Date("2025-12-24T20:30:00");
+  const isUnlocked = now >= unlockTime;
+
+  useEffect(() => {
+    const messages = isUnlocked
+      ? [
+          "랭킹 보러가기가 열렸어요! 가장 많이 선물을 보낸 사람은 누구일까요?",
+          "실명이 아닐 경우 상품 지급이 어려우니, 설정에서 꼭 실명으로 변경해주세요",
+        ]
+      : [
+          "실명이 아닐 경우 상품 지급이 어려우니, 설정에서 꼭 실명으로 변경해주세요",
+        ];
+
+    showToast({
+      message: messages,
+      persist: true,
+      carouselSpeed: 0.8,
+      top: "88px",
+    });
+  }, [showToast]);
 
   const handlePostClick = () => {
     if (isMyTree) {
@@ -51,6 +74,7 @@ const HomePage = () => {
             showToast({
               message: "링크가 복사되었습니다!",
               duration: 2000,
+              top: "138px",
             })
           }
           className="flex flex-col items-center text-xs text-white absolute left-4 pointer-events-auto"

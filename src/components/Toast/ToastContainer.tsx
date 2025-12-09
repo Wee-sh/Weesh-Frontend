@@ -1,5 +1,4 @@
-// components/Toast/ToastContainer.tsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import type { ToastOptions } from "./ToastProvider";
 
 interface Props {
@@ -7,39 +6,65 @@ interface Props {
 }
 
 const ToastContainer: React.FC<Props> = ({ toast }) => {
-  const [index, setIndex] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [offset, setOffset] = useState(0);
 
-  const isCarousel = toast && Array.isArray(toast.message);
-
-  // 캐러셀 동작
   useEffect(() => {
-    if (!toast) return;
+    if (!toast || !Array.isArray(toast.message)) return;
 
-    if (!isCarousel) {
-      setIndex(0);
-      return;
-    }
+    const speed = toast.carouselSpeed || 1;
+    let animationFrame: number;
 
-    const interval = setInterval(() => {
-      setIndex((i) => (i + 1) % toast.message.length);
-    }, toast.carouselSpeed || 2000);
+    const animate = () => {
+      if (!contentRef.current || !containerRef.current) return;
 
-    return () => clearInterval(interval);
-  }, [toast, isCarousel]);
+      const singleWidth = contentRef.current.offsetWidth / 2; // 메시지 한 세트 길이
+      setOffset((prev) => {
+        const newOffset = prev - speed;
+        // 한 세트 길이만큼 왔으면 0으로 초기화 → 꼬리물기 효과
+        return newOffset < -singleWidth ? 0 : newOffset;
+      });
+
+      animationFrame = requestAnimationFrame(animate);
+    };
+
+    // 초기 offset 설정
+    setOffset(0);
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, [toast]);
 
   if (!toast) return null;
 
-  const content = isCarousel ? toast.message[index] : toast.message;
-
-  const animationClass = toast.persist
-    ? "" // 지속형이면 애니메이션 제거 (fade-out 방지)
-    : "animate-fadeInOut";
+  const top = toast.top || "88px";
+  const animationClass = toast.persist ? "" : "animate-fadeInOut";
 
   return (
     <div
-      className={`fixed top-[138px] left-1/2 -translate-x-1/2 opacity-80 bg-[#7F7F7F] text-white px-4 py-3 rounded-xl text-base transition-all duration-300 z-50 ${animationClass}`}
+      ref={containerRef}
+      style={{ top }}
+      className={`max-w-[329px] w-fit fixed left-1/2 -translate-x-1/2 overflow-hidden opacity-80 bg-[#7F7F7F] text-white px-4 py-3 rounded-xl text-base z-50 ${animationClass}`}
     >
-      {content}
+      {Array.isArray(toast.message) ? (
+        <div
+          ref={contentRef}
+          style={{ transform: `translateX(${offset}px)` }}
+          className="whitespace-nowrap inline-block"
+        >
+          {/* 메시지 꼬리물기 효과: 두 번 렌더링 */}
+          {[...toast.message, ...toast.message].map(
+            (msg: string, idx: number) => (
+              <span key={idx} className="mr-8">
+                {msg}
+              </span>
+            )
+          )}
+        </div>
+      ) : (
+        <div>{toast.message}</div>
+      )}
     </div>
   );
 };

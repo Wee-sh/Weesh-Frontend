@@ -1,4 +1,3 @@
-// components/Toast/ToastProvider.tsx
 import React, { createContext, useContext, useCallback, useState } from "react";
 import ToastContainer from "./ToastContainer";
 
@@ -6,12 +5,17 @@ export interface ToastOptions {
   message: string | string[];
   duration?: number;
   persist?: boolean;
-  carouselSpeed?: number;
+  carouselSpeed?: number; // px/frame
+  top?: string;
+}
+
+export interface ToastItem extends ToastOptions {
+  id: number;
 }
 
 interface ToastContextType {
   showToast: (options: ToastOptions) => void;
-  hideToast: () => void;
+  hideToast: (id: number) => void;
 }
 
 const ToastContext = createContext<ToastContextType | null>(null);
@@ -25,27 +29,31 @@ export const useToast = () => {
 export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [toast, setToast] = useState<ToastOptions | null>(null);
+  const [toasts, setToasts] = useState<ToastItem[]>([]);
 
   const showToast = useCallback((options: ToastOptions) => {
+    const id = Date.now();
     const { persist = false, duration = 2000 } = options;
 
-    setToast(options);
+    setToasts((prev) => [...prev, { ...options, id }]);
 
-    // 지속형(persist)일 때는 자동 제거 안 함
     if (!persist) {
       setTimeout(() => {
-        setToast(null);
+        setToasts((prev) => prev.filter((t) => t.id !== id));
       }, duration);
     }
   }, []);
 
-  const hideToast = () => setToast(null);
+  const hideToast = (id: number) => {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+  };
 
   return (
     <ToastContext.Provider value={{ showToast, hideToast }}>
       {children}
-      <ToastContainer toast={toast} />
+      {toasts.map((toast) => (
+        <ToastContainer key={toast.id} toast={toast} />
+      ))}
     </ToastContext.Provider>
   );
 };

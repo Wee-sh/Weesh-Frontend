@@ -106,6 +106,7 @@ const PostBox = () => {
       toast.showToast({
         message: "받은 편지는 12월 24일 오후 8시 30분 부터 확인 가능해요!",
         persist: true,
+        top: "138px",
       });
     }
 
