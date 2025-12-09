@@ -9,7 +9,8 @@ import tree_4 from "../../assets/decoration/trees/tree_4.png";
 import tree_5 from "../../assets/decoration/trees/tree_5.png";
 import copy_link from "../../assets/Icon/copy_link.svg";
 import star from "../../assets/decoration/star.svg";
-import { useNavigate, useParams } from "react-router-dom";
+import first_place from "../../assets/Icon/first-place.svg";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Modal from "../../components/Modal/Modal";
 import WritePostModal from "../../components/Modal/WritePostModal";
 import { useToast } from "../../components/Toast/ToastProvider";
@@ -26,21 +27,29 @@ const trees = [
 const HomePage = () => {
   const navigate = useNavigate();
   const { userId } = useParams();
-  const { showToast } = useToast();
+  const location = useLocation();
+  const { showToast, hideAllToasts } = useToast();
 
   const [gift, setGift] = useState(0);
+  const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
 
   const currentUserId = "myUserId";
   const isMyTree = !userId || userId === currentUserId;
   const currentTree = trees.find((tree) => tree.id === gift);
-
-  const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
 
   const now = new Date();
   const unlockTime = new Date("2025-12-24T20:30:00");
   const isUnlocked = now >= unlockTime;
 
   useEffect(() => {
+    if (location.pathname !== "/") {
+      hideAllToasts("carousel");
+    }
+  }, [location.pathname, hideAllToasts]);
+
+  useEffect(() => {
+    if (location.pathname !== "/") return;
+
     const messages = isUnlocked
       ? [
           "랭킹 보러가기가 열렸어요! 가장 많이 선물을 보낸 사람은 누구일까요?",
@@ -55,8 +64,9 @@ const HomePage = () => {
       persist: true,
       carouselSpeed: 0.8,
       top: "88px",
+      type: "carousel",
     });
-  }, [showToast]);
+  }, [location.pathname, showToast, isUnlocked]);
 
   const handlePostClick = () => {
     if (isMyTree) {
@@ -69,17 +79,29 @@ const HomePage = () => {
   return (
     <div className="w-screen min-h-screen relative bg-cover bg-center bg-no-repeat bg-[url('/src/assets/background/weesh-home-bg.png')]">
       <div className="w-full flex justify-center items-center pt-11 relative">
-        <div
-          onClick={() =>
-            showToast({
-              message: "링크가 복사되었습니다!",
-              duration: 2000,
-              top: "138px",
-            })
-          }
-          className="flex flex-col items-center text-xs text-white absolute left-4 pointer-events-auto"
-        >
-          <img src={copy_link} />내 트리 공유
+        <div className="flex flex-row gap-2 absolute left-4">
+          <div
+            onClick={() =>
+              showToast({
+                message: "링크가 복사되었습니다!",
+                duration: 2000,
+                top: "138px",
+              })
+            }
+            className="flex flex-col items-center text-xs text-white pointer-events-auto"
+          >
+            <img src={copy_link} />내 트리 공유
+          </div>
+
+          <div
+            onClick={() => {
+              navigate("/haha");
+            }}
+            className="flex flex-col items-center text-xs text-[#F9BD00] pointer-events-auto"
+          >
+            <img src={first_place} />
+            순위 보기
+          </div>
         </div>
 
         <h1
@@ -95,7 +117,9 @@ const HomePage = () => {
         <img
           src={setting_cookie}
           className="absolute right-4 pointer-events-auto"
-          onClick={() => navigate("/setting")}
+          onClick={() => {
+            navigate("/setting");
+          }}
         />
       </div>
 

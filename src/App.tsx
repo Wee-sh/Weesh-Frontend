@@ -7,8 +7,8 @@ import { ToastProvider } from "./components/Toast/ToastProvider";
 
 function App() {
   return (
-    <ToastProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <ToastProvider>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/tree/:userId" element={<HomePage />} />
@@ -16,8 +16,8 @@ function App() {
           {/*<Route path="/write-message/:userId" element={<WriteMessage />} /> */}
           <Route path="/setting" element={<SettingPage />} />
         </Routes>
-      </BrowserRouter>
-    </ToastProvider>
+      </ToastProvider>
+    </BrowserRouter>
   );
 }
 

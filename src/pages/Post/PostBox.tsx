@@ -107,12 +107,13 @@ const PostBox = () => {
         message: "받은 편지는 12월 24일 오후 8시 30분 부터 확인 가능해요!",
         persist: true,
         top: "138px",
+        type: "normal", // 일반 토스트
       });
     }
 
     if (selected === "sent") {
       toastShownRef.current = false;
-      toast.hideToast();
+      toast.hideAllToasts("normal"); // 일반 토스트만 제거
     }
   }, [selected, isUnlocked]);
 
@@ -138,7 +139,7 @@ const PostBox = () => {
         <img
           onClick={() => {
             navigate(-1);
-            toast.hideToast();
+            toast.hideAllToasts("normal");
           }}
           src={arrow}
           className="absolute left-4 cursor-pointer pointer-events-auto"
