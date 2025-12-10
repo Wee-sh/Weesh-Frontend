@@ -101,22 +101,24 @@ const HomePage = () => {
             </div>
           )}
 
-          <div
-            onClick={() => {
-              navigate("/ranking");
-              showToast({
-                message:
-                  "상위 3명은 5층 위클래스 상담실에서 상품을 받아가세요!",
-                persist: true,
-                top: "88px",
-                type: "normal",
-              });
-            }}
-            className="flex flex-col items-center gap-[2px] text-xs text-[#F9BD00] pointer-events-auto"
-          >
-            <img src={first_place} />
-            순위 보기
-          </div>
+          {isUnlocked && (
+            <div
+              onClick={() => {
+                navigate("/ranking");
+                showToast({
+                  message:
+                    "상위 3명은 5층 위클래스 상담실에서 상품을 받아가세요!",
+                  persist: true,
+                  top: "88px",
+                  type: "normal",
+                });
+              }}
+              className="flex flex-col items-center gap-[2px] text-xs text-[#F9BD00] pointer-events-auto"
+            >
+              <img src={first_place} />
+              순위 보기
+            </div>
+          )}
         </div>
 
         <h1
