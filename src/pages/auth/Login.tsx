@@ -3,7 +3,19 @@ import KakaoOauthButton from "../../components/Auth/KakaoOauthButton";
 import insta_icon from "../../assets/Icon/insta_icon.svg";
 import tree from "../../assets/decoration/image-removebg-preview-51 1.png";
 import tree_halo from "../../assets/decoration/Vector 3.png";
+
 const Login = () => {
+  const onKakaoLogin = () => {
+    const REST_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY;
+    const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
+
+    const kakaoURL =
+      `https://kauth.kakao.com/oauth/authorize?` +
+      `client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+    window.location.href = kakaoURL;
+  };
+
   return (
     <div className="relative w-screen min-h-screen bg-cover bg-center bg-no-repeat bg-[url('/src/assets/background/weesh-login-bg.png')]">
       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-black/10" />
@@ -21,7 +33,7 @@ const Login = () => {
           <h1 className="text-2xl text-white mb-[38px]">
             Wee-sh You a Merry Christmas
           </h1>
-          <KakaoOauthButton />
+          <KakaoOauthButton onKakaoLogin={onKakaoLogin} />
           <div className="w-full flex flex-col gap-[14px] pt-[14px] items-start border-t border-t-[#616161] mt-[25px]">
             <img src={insta_icon} className="w-5 h-5" />
             <span className="text-[10px] text-[#9D9D9D] font-pretendard">
