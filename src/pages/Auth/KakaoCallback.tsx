@@ -17,8 +17,11 @@ const KakaoCallback = () => {
 
     kakaoLogin.mutate(code, {
       onSuccess: (data) => {
-        localStorage.setItem("accessToken", data.accessToken);
-        navigate(`/tree/${data.userId}`);
+        localStorage.setItem("accessToken", data.token.accessToken);
+        localStorage.setItem("refreshToken", data.token.refreshToken);
+        localStorage.setItem("nickname", data.nickname);
+        localStorage.setItem("userId", data.userId.toString());
+        navigate(`/tree/${data.userId}`, { replace: true });
       },
       onError: () => navigate("/login?error=login_failed"),
     });
