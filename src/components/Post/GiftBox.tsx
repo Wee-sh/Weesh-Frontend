@@ -1,5 +1,5 @@
 import giftBox from "../../assets/decoration/giftbox/gift-img.svg";
-import type { RankUser } from "../../pages/Ranking/RankingPage";
+import type { RankUser } from "../../pages/ranking/RankingPage";
 
 interface Props {
   rankUser: RankUser;

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import arrow from "../../assets/Icon/arrow-left.svg";
 import { useNavigate } from "react-router-dom";
-import ToggleSwitch from "../../components/Post/ToggleSwitch";
-import GiftGrid from "../../components/Post/GiftGrid";
-import Modal from "../../components/Modal/Modal";
-import PostModal from "../../components/Modal/PostModal";
+import ToggleSwitch from "../../components/post/ToggleSwitch";
+import GiftGrid from "../../components/post/GiftGrid";
+import Modal from "../../components/modal/Modal";
+import PostModal from "../../components/modal/PostModal";
 import { useToast } from "../../components/Toast/ToastProvider";
 
 export interface Message {

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import arrow from "../../assets/Icon/arrow-left.svg";
-import GiftBox from "../../components/Post/GiftBox";
-import GiftGrid from "../../components/Post/GiftGrid";
+import GiftBox from "../../components/post/GiftBox";
+import GiftGrid from "../../components/post/GiftGrid";
 import { useToast } from "../../components/Toast/ToastProvider";
 
 export interface RankUser {

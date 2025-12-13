@@ -1,6 +1,6 @@
 import giftBox from "../../assets/decoration/giftbox/gift-img.svg";
-import type { Message } from "../../pages/Post/PostBox";
-import type { RankUser } from "../../pages/Ranking/RankingPage";
+import type { Message } from "../../pages/post/PostBox";
+import type { RankUser } from "../../pages/ranking/RankingPage";
 
 interface Props {
   rankUser?: RankUser[];

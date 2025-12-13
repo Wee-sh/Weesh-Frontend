@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import arrow_left from "../../assets/Icon/arrow-left.svg";
-import SettingButton from "../../components/Setting/SettingButton";
-import Modal from "../../components/Modal/Modal";
-import NameChangeModalContent from "../../components/Modal/NameChangeModal";
+import SettingButton from "../../components/setting/SettingButton";
+import Modal from "../../components/modal/Modal";
+import NameChangeModalContent from "../../components/modal/NameChangeModal";
 
 const SettingPage = () => {
   const navigate = useNavigate();

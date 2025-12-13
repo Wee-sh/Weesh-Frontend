@@ -11,8 +11,8 @@ import copy_link from "../../assets/Icon/copy_link.svg";
 import star from "../../assets/decoration/star.svg";
 import first_place from "../../assets/Icon/first-place.svg";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import Modal from "../../components/Modal/Modal";
-import WritePostModal from "../../components/Modal/WritePostModal";
+import Modal from "../../components/modal/Modal";
+import WritePostModal from "../../components/modal/WritePostModal";
 import { useToast } from "../../components/Toast/ToastProvider";
 import { useMyTree } from "../../hooks/useMyTree";
 
