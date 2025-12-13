@@ -1,12 +1,12 @@
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Login from "./pages/auth/Login";
+import KakaoCallback from "./pages/auth/KakaoCallback";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 import HomePage from "./pages/home/HomePage";
 import PostBox from "./pages/post/PostBox";
 import SettingPage from "./pages/setting/SettingPage";
 import { ToastProvider } from "./components/toast/ToastProvider";
 import RankingPage from "./pages/ranking/RankingPage";
-import KakaoCallback from "./pages/auth/KakaoCallback";
-import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function App() {
   return (
