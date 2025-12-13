@@ -3,9 +3,20 @@ import KakaoOauthButton from "../../components/Auth/KakaoOauthButton";
 import insta_icon from "../../assets/Icon/insta_icon.svg";
 import tree from "../../assets/decoration/image-removebg-preview-51 1.png";
 import tree_halo from "../../assets/decoration/Vector 3.png";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const onKakaoLogin = () => {
+    const accessToken = localStorage.getItem("accessToken");
+    const userId = localStorage.getItem("userId");
+
+    if (accessToken && userId) {
+      navigate(`/tree/${userId}`);
+      return;
+    }
+
     const REST_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY;
     const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
 

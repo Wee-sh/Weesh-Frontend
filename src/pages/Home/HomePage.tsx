@@ -14,6 +14,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Modal from "../../components/Modal/Modal";
 import WritePostModal from "../../components/Modal/WritePostModal";
 import { useToast } from "../../components/Toast/ToastProvider";
+import { useMyTree } from "../../hooks/useMyTree";
 
 const trees = [
   { id: 0, url: tree_0 },
@@ -29,9 +30,27 @@ const HomePage = () => {
   const { userId } = useParams();
   const location = useLocation();
   const { showToast, hideAllToasts } = useToast();
+  const { data, isLoading, error } = useMyTree();
 
   const [gift, setGift] = useState(0);
   const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
+
+  if (isLoading)
+    return <div className="flex items-center justify-center min-h-screen text-white">로딩 중...</div>;
+
+  if (error) {
+    const isAuthError = (error as any)?.response?.status === 401;
+    if (isAuthError) {
+      localStorage.clear();
+      window.location.href = "/login";
+      return null;
+    }
+    return (
+      <div className="flex items-center justify-center min-h-screen text-red-500">
+        데이터를 불러오지 못했습니다.
+      </div>
+    );
+  }
 
   const currentUserId = "myUserId";
   const isMyTree = !userId || userId === currentUserId;
@@ -128,7 +147,7 @@ const HomePage = () => {
           }}
           className="text-2xl text-[#62B01B]"
         >
-          {isMyTree ? "김소희" : userId}의 트리
+          {isMyTree ? data.nickName : userId}의 트리
         </h1>
 
         {isMyTree && (
@@ -157,7 +176,7 @@ const HomePage = () => {
                   }}
                   className="text-xl text-white"
                 >
-                  {100}
+                  {data.starCount}
                 </span>
               </div>
               <img src={currentTree.url} className="w-full" />

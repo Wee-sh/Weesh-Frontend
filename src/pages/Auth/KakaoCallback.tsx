@@ -11,9 +11,11 @@ const KakaoCallback = () => {
 
   useEffect(() => {
     if (!code) {
-      navigate("/login?error=no_code");
+      navigate("/login");
       return;
     }
+
+    window.history.replaceState({}, "", window.location.pathname);
 
     kakaoLogin.mutate(code, {
       onSuccess: (data) => {
@@ -21,11 +23,13 @@ const KakaoCallback = () => {
         localStorage.setItem("refreshToken", data.token.refreshToken);
         localStorage.setItem("nickname", data.nickname);
         localStorage.setItem("userId", data.userId.toString());
+
         navigate(`/tree/${data.userId}`, { replace: true });
       },
-      onError: () => navigate("/login?error=login_failed"),
+      onError: () => navigate("/login"),
     });
   }, []);
+
   return (
     <div className="w-screen min-h-screen flex justify-center items-center text-xl text-white bg-cover bg-center bg-no-repeat bg-[url('/src/assets/background/weesh-login-bg.png')]">
       카카오 로그인 처리 중...
