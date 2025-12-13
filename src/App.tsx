@@ -1,13 +1,30 @@
-import "./App.css";
-import { Route, BrowserRouter, Routes } from "react-router-dom";
-import Login from "./pages/Login";
+import { Route, BrowserRouter, Routes, Outlet } from "react-router-dom";
+import Login from "./pages/Auth/Login";
+import HomePage from "./pages/Home/HomePage";
+import PostBox from "./pages/Post/PostBox";
+import SettingPage from "./pages/Setting/SettingPage";
+import { ToastProvider } from "./components/Toast/ToastProvider";
+import RankingPage from "./pages/Ranking/RankingPage";
+import KakaoCallback from "./pages/Auth/KakaoCallback";
+import ProtectedRoute from "./components/Auth/ProtectedRoute";
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-      </Routes>
+      <ToastProvider>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/kakao/callback" element={<KakaoCallback />} />
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/tree/:userId" element={<HomePage />} />
+            <Route path="/post-box" element={<PostBox />} />
+            <Route path="/setting" element={<SettingPage />} />
+            <Route path="/ranking" element={<RankingPage />} />
+          </Route>
+        </Routes>
+      </ToastProvider>
     </BrowserRouter>
   );
 }
