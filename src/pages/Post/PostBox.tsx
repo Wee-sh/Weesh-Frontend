@@ -5,7 +5,7 @@ import ToggleSwitch from "../../components/post/ToggleSwitch";
 import GiftGrid from "../../components/post/GiftGrid";
 import Modal from "../../components/modal/Modal";
 import PostModal from "../../components/modal/PostModal";
-import { useToast } from "../../components/Toast/ToastProvider";
+import { useToast } from "../../components/toast/ToastProvider";
 
 export interface Message {
   id: number;

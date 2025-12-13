@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import arrow from "../../assets/Icon/arrow-left.svg";
 import GiftBox from "../../components/post/GiftBox";
 import GiftGrid from "../../components/post/GiftGrid";
-import { useToast } from "../../components/Toast/ToastProvider";
+import { useToast } from "../../components/toast/ToastProvider";
 
 export interface RankUser {
   userId: number;
