@@ -1,4 +1,3 @@
-import React from "react";
 import arrow_right from "../../assets/Icon/arrow-right.svg";
 
 interface Prop {

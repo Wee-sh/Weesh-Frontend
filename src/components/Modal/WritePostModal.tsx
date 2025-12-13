@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import SubmitButton from "./SubmitButton";
 import ModalToggle from "./ModalToggle";
 

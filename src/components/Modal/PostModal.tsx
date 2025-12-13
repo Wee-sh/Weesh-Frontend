@@ -1,7 +1,3 @@
-import React, { useState } from "react";
-import SubmitButton from "./SubmitButton";
-import ModalToggle from "./ModalToggle";
-
 interface Props {
   fromUserName: string;
   toUserName: string;
