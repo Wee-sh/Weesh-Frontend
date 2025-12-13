@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import arrow from "../../assets/Icon/arrow-left.svg";
 import GiftBox from "../../components/Post/GiftBox";

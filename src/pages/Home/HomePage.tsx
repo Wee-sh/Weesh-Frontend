@@ -33,10 +33,15 @@ const HomePage = () => {
   const { data, isLoading, error } = useMyTree();
 
   const [gift, setGift] = useState(0);
+  setGift(0);
   const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
 
   if (isLoading)
-    return <div className="flex items-center justify-center min-h-screen text-white">로딩 중...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen text-white">
+        로딩 중...
+      </div>
+    );
 
   if (error) {
     const isAuthError = (error as any)?.response?.status === 401;

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 interface Props {
   selected: "sent" | "received";
   onToggle: (value: "sent" | "received") => void;
