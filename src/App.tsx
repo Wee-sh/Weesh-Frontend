@@ -4,6 +4,7 @@ import HomePage from "./pages/Home/HomePage";
 import PostBox from "./pages/Post/PostBox";
 import SettingPage from "./pages/Setting/SettingPage";
 import { ToastProvider } from "./components/Toast/ToastProvider";
+import RankingPage from "./pages/Ranking/RankingPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/post-box" element={<PostBox />} />
           {/*<Route path="/write-message/:userId" element={<WriteMessage />} /> */}
           <Route path="/setting" element={<SettingPage />} />
+          <Route path="/ranking" element={<RankingPage />} />
         </Routes>
       </ToastProvider>
     </BrowserRouter>

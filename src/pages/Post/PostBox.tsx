@@ -90,6 +90,94 @@ const PostBox = () => {
       giftTemplate: 4,
       createdAt: "2025-12-03T20:12:40.553474",
     },
+    {
+      id: 13,
+      fromUserName: "소희",
+      toUserName: "박지민",
+      content: "새해 복 많이 받으세요",
+      giftTemplate: 4,
+      createdAt: "2025-12-03T20:12:40.553474",
+    },
+    {
+      id: 14,
+      fromUserName: "소희",
+      toUserName: "박지민",
+      content: "새해 복 많이 받으세요",
+      giftTemplate: 4,
+      createdAt: "2025-12-03T20:12:40.553474",
+    },
+    {
+      id: 15,
+      fromUserName: "소희",
+      toUserName: "박지민",
+      content: "새해 복 많이 받으세요",
+      giftTemplate: 4,
+      createdAt: "2025-12-03T20:12:40.553474",
+    },
+    {
+      id: 16,
+      fromUserName: "소희",
+      toUserName: "박지민",
+      content: "새해 복 많이 받으세요",
+      giftTemplate: 4,
+      createdAt: "2025-12-03T20:12:40.553474",
+    },
+    {
+      id: 17,
+      fromUserName: "소희",
+      toUserName: "박지민",
+      content: "새해 복 많이 받으세요",
+      giftTemplate: 4,
+      createdAt: "2025-12-03T20:12:40.553474",
+    },
+    {
+      id: 18,
+      fromUserName: "소희",
+      toUserName: "박지민",
+      content: "새해 복 많이 받으세요",
+      giftTemplate: 4,
+      createdAt: "2025-12-03T20:12:40.553474",
+    },
+    {
+      id: 19,
+      fromUserName: "소희",
+      toUserName: "박지민",
+      content: "새해 복 많이 받으세요",
+      giftTemplate: 4,
+      createdAt: "2025-12-03T20:12:40.553474",
+    },
+    {
+      id: 20,
+      fromUserName: "소희",
+      toUserName: "박지민",
+      content: "새해 복 많이 받으세요",
+      giftTemplate: 4,
+      createdAt: "2025-12-03T20:12:40.553474",
+    },
+    {
+      id: 21,
+      fromUserName: "소희",
+      toUserName: "박지민",
+      content: "새해 복 많이 받으세요",
+      giftTemplate: 4,
+      createdAt: "2025-12-03T20:12:40.553474",
+    },
+    {
+      id: 22,
+      fromUserName: "소희",
+      toUserName: "박지민",
+      content: "새해 복 많이 받으세요",
+      giftTemplate: 4,
+      createdAt: "2025-12-03T20:12:40.553474",
+    },
+    {
+      id: 23,
+      fromUserName: "소희",
+      toUserName: "박지민",
+      content: "새해 복 많이 받으세요",
+      giftTemplate: 4,
+      createdAt: "2025-12-03T20:12:40.553474",
+    },
   ];
 
   useEffect(() => {
@@ -148,12 +236,14 @@ const PostBox = () => {
 
       <ToggleSwitch selected={selected} onToggle={setSelected} />
 
-      <GiftGrid
-        messages={messages}
-        type={selected}
-        locked={selected === "received" && !isUnlocked}
-        onClickMessage={handleClickMessage}
-      />
+      <div className="w-full h-[674px]">
+        <GiftGrid
+          messages={messages}
+          type={selected}
+          locked={selected === "received" && !isUnlocked}
+          onClickMessage={handleClickMessage}
+        />
+      </div>
 
       {openModal && selectedMessage && (
         <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>

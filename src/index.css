@@ -8,6 +8,17 @@
   box-sizing: border-box;
 }
 
+@layer utilities {
+  .scroll-hide {
+    -ms-overflow-style: none; /* IE & Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .scroll-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+  }
+}
+
 @font-face {
   font-family: "OngleipParkDahyeon";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2")
@@ -42,11 +53,11 @@ img {
     transform: translate(-50%, 20px);
   }
   20% {
-    opacity: 1;
+    opacity: 0.8;
     transform: translate(-50%, 0);
   }
   80% {
-    opacity: 1;
+    opacity: 0.8;
     transform: translate(-50%, 0);
   }
   100% {
