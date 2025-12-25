@@ -122,13 +122,15 @@ const HomePage = () => {
           {isMyTree ? "김소희" : userId}의 트리
         </h1>
 
-        <img
-          src={setting_cookie}
-          className="absolute right-4 pointer-events-auto"
-          onClick={() => {
-            navigate("/setting");
-          }}
-        />
+        {isMyTree && (
+          <img
+            src={setting_cookie}
+            className="absolute right-4 pointer-events-auto"
+            onClick={() => {
+              navigate("/setting");
+            }}
+          />
+        )}
       </div>
 
       <div className="w-full h-[25%] absolute bottom-0 pointer-events-none">
