@@ -71,6 +71,12 @@ const HomePage = () => {
   const handlePostClick = () => {
     if (isMyTree) {
       navigate("/post-box");
+    } else if (isUnlocked) {
+      showToast({
+        message: "덕담 작성 기간이 끝났습니다!",
+        duration: 2000,
+        top: "88px",
+      });
     } else {
       setIsWriteModalOpen(true);
     }
@@ -80,24 +86,26 @@ const HomePage = () => {
     <div className="w-screen min-h-screen relative bg-cover bg-center bg-no-repeat bg-[url('/src/assets/background/weesh-home-bg.png')]">
       <div className="w-full flex justify-center items-center pt-11 relative">
         <div className="flex flex-row gap-2 absolute left-4">
-          <div
-            onClick={() =>
-              showToast({
-                message: "링크가 복사되었습니다!",
-                duration: 2000,
-                top: "138px",
-              })
-            }
-            className="flex flex-col items-center text-xs text-white pointer-events-auto"
-          >
-            <img src={copy_link} />내 트리 공유
-          </div>
+          {isMyTree && (
+            <div
+              onClick={() =>
+                showToast({
+                  message: "링크가 복사되었습니다!",
+                  duration: 2000,
+                  top: "138px",
+                })
+              }
+              className="flex flex-col items-center text-xs text-white pointer-events-auto"
+            >
+              <img src={copy_link} />내 트리 공유
+            </div>
+          )}
 
           <div
             onClick={() => {
-              navigate("/haha");
+              navigate("/ranking");
             }}
-            className="flex flex-col items-center text-xs text-[#F9BD00] pointer-events-auto"
+            className="flex flex-col items-center gap-[2px] text-xs text-[#F9BD00] pointer-events-auto"
           >
             <img src={first_place} />
             순위 보기
